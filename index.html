@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy 22nd Birthday!</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --bg: #0f172a;
+            --cake-sponge: #f4d06f;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg);
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+            background: radial-gradient(circle at top right, #1e1b4b, #0f172a);
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 2.5rem 1.5rem;
+            width: 90%;
+            max-width: 420px;
+            text-align: center;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 1s ease-out;
+        }
+
+        .photo-container {
+            width: 140px;
+            height: 140px;
+            margin: 0 auto 1.5rem;
+            border-radius: 50%;
+            border: 4px solid white;
+            overflow: hidden;
+            animation: slideDown 0.8s ease-out;
+        }
+
+        .photo-container img { width: 100%; height: 100%; object-fit: cover; }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(to right, #818cf8, #fb7185);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* --- THE CAKE ASSEMBLY --- */
+        .cake-wrapper {
+            position: relative;
+            height: 180px;
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* 1. Plate */
+        .plate {
+            position: absolute;
+            bottom: 0;
+            width: 200px;
+            height: 15px;
+            background: #e2e8f0;
+            border-radius: 50%;
+            box-shadow: 0 5px 0 #cbd5e1;
+            transform: scale(0);
+            animation: popIn 0.5s 0.2s cubic-bezier(0.17, 0.67, 0.83, 0.67) forwards;
+        }
+
+        /* 2. Sponge Body */
+        .cake-body {
+            position: absolute;
+            bottom: 10px;
+            width: 150px;
+            height: 80px;
+            background: var(--cake-sponge);
+            border-radius: 8px 8px 4px 4px;
+            transform: translateY(-600px);
+            animation: dropIn 0.8s 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+            overflow: hidden;
+        }
+
+        /* Middle Filling Line */
+        .cake-body::before {
+            content: '';
+            position: absolute;
+            top: 55%;
+            width: 100%;
+            height: 10px;
+            background: rgba(255,255,255,0.9);
+            transform: scaleX(0);
+            animation: expand 0.6s 1.8s ease-out forwards;
+        }
+
+        /* 3. Frosting (The White Drips) - Fixed Arrangement */
+        .frosting {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 40px;
+            background: white;
+            z-index: 2;
+        }
+
+        /* Custom SVG Drip Shape for perfect alignment */
+        .drips {
+            position: absolute;
+            top: 39px; /* Sit right under the frosting top */
+            left: 0;
+            width: 150px;
+            fill: white;
+            z-index: 3;
+            transform: scaleY(0);
+            transform-origin: top;
+            animation: expandVertical 0.5s 1.4s ease-out forwards;
+        }
+
+        /* 4. Candles */
+        .candles-group {
+            position: absolute;
+            bottom: 90px;
+            display: flex;
+            gap: 18px;
+            z-index: 10;
+            opacity: 0;
+            animation: fadeIn 0.5s 2.2s forwards;
+        }
+
+        .candle {
+            width: 8px;
+            height: 35px;
+            background: linear-gradient(to right, #60a5fa, #93c5fd);
+            border-radius: 2px;
+            position: relative;
+        }
+
+        .flame {
+            position: absolute;
+            top: -18px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 12px;
+            height: 20px;
+            background: #fbbf24;
+            border-radius: 50% 50% 20% 20%;
+            box-shadow: 0 0 15px #f59e0b;
+            animation: flicker 0.6s infinite alternate;
+        }
+
+        /* --- Keyframes --- */
+        @keyframes popIn { to { transform: scale(1); } }
+        @keyframes dropIn { to { transform: translateY(0); } }
+        @keyframes expand { to { transform: scaleX(1); } }
+        @keyframes expandVertical { to { transform: scaleY(1); } }
+        @keyframes fadeIn { to { opacity: 1; } }
+        @keyframes slideDown { from { transform: translateY(-50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        @keyframes flicker { 0% { opacity: 0.8; transform: translateX(-50%) scale(1); } 100% { opacity: 1; transform: translateX(-50%) scale(1.2); } }
+
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <div class="photo-container">
+            <img src="puja.jpg" alt="Birthday Person">
+        </div>
+
+        <h1>Happy Birthday<br>PUJA</h1>
+        <p style="opacity: 0.7; font-size: 1rem;">Level 22 Unlocked</p>
+
+        <div class="cake-wrapper">
+            <div class="candles-group">
+                <div class="candle"><div class="flame"></div></div>
+                <div class="candle"><div class="flame"></div></div>
+                <div class="candle"><div class="flame"></div></div>
+            </div>
+
+            <div class="cake-body">
+                <div class="frosting"></div>
+                <svg class="drips" viewBox="0 0 150 30" preserveAspectRatio="none">
+                    <path d="M0,0 L150,0 L150,10 C140,25 130,5 120,15 C110,25 100,5 90,20 C80,35 70,5 60,15 C50,25 40,5 30,20 C20,35 10,5 0,15 Z"></path>
+                </svg>
+            </div>
+            
+            <div class="plate"></div>
+        </div>
+    </div>
+
+    <script>
+        window.onload = () => {
+            setTimeout(() => {
+                confetti({
+                    particleCount: 120,
+                    spread: 70,
+                    origin: { y: 0.7 },
+                    colors: ['#6366f1', '#fb7185', '#ffffff']
+                });
+            }, 2500);
+        };
+    </script>
+</body>
+</html>
